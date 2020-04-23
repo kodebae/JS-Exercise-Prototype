@@ -39,9 +39,9 @@ Airplane.prototype.land = function() {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person(attributes) {
-    this.name = attributes.name;
-    this.age = attributes.age;
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
     this.stomach = [];
 
     Person.prototype.eat = function(edible) {
@@ -91,16 +91,19 @@ function Person(attributes) {
     odometer `.
 */
 
-function Car(properties) {
-    this.model = properties.model;
-    this.milesPerGallon = properties.milesPerGallon;
+function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
     this.tank = 0;
     this.odometer = 0;
-    //get fueled method
-    Car.prototype.gallons = function(); {
-
+}
+//get fueled method
+Car.prototype.fill = function(gallons) {
+    if (gallons > 0) {
+        this.tank = this.tank + gallons;
     }
 }
+
 
 /*
   TASK 3
@@ -113,19 +116,40 @@ function Car(properties) {
         `:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+    Person.call(this, name, age);
+    this.name = name;
+    this.age = age;
+    this.favoriteToy = favoriteToy;
 }
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function() {
+        return `Playing with ${this.favoriteToy}`;
+    }
+    /* 
+    TASK 4
 
-/* 
-  TASK 4
+    In your own words explain the four principles
+    for the "this" keyword below:
 
-  In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
-*/
+        1. Window/Strict Mode - If no other rules apply this defaults to the 
+        window unless you 're in strict mode in which case it will 
+        return undefined.
+
+    2. Implicate binding - most common found in 80 % of cases.When the function
+    is invoked we look to the left of the dot.That is what this refers to.
+    Only applies to objects with methods.
+
+    3. Explicate binding - Call will immediately invoke the function. We use.call
+    and pass our arguments in 1 by 1. Apply will also immediately invoke the
+    function.With.apply you pass in arguments as an array.With bind you
+    pass in the arguments 1 by 1 but it does not immediately invoke the function.
+    This would return a brand new function which could be invoked later. 
+
+    4. New Binding - Using the new keyword constructs a new object and 'this' 
+    points to it. When a function is invoked as a constructor function using 
+    the 'new' keyword 'this' points to the new object thats created.
+    */
 
 
 ///////// END OF CHALLENGE /////////
